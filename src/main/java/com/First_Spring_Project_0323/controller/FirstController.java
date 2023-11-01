@@ -47,9 +47,9 @@ public class FirstController {
 
     @PostMapping
     public User createUser(@RequestBody User user){
-        System.out.println(user.getId());
-        System.out.println(user.getName());
-        System.out.println(user.getEmail());
+        System.out.println(user.getUserId());
+        System.out.println(user.getUserName());
+        System.out.println(user.getUserEmail());
         return user;
     }
 
