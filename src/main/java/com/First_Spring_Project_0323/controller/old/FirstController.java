@@ -1,4 +1,4 @@
-package com.First_Spring_Project_0323.controller;
+package com.First_Spring_Project_0323.controller.old;
 
 import com.First_Spring_Project_0323.model.User;
 import org.springframework.web.bind.annotation.*;
