@@ -1,11 +1,10 @@
-package com.First_Spring_Project_0323.repository;
+package com.First_Spring_Project_0323.service;
 
 import com.First_Spring_Project_0323.model.Customer;
-import com.First_Spring_Project_0323.model.CustomerStatus;
 
 import java.util.List;
 
-public interface CustomerRepository {
+public interface CustomerService {
 
     void createCustomer(Customer customer);
     void deleteCustomerById(Integer id);
@@ -19,7 +18,5 @@ public interface CustomerRepository {
     List<Integer> getAllCustomerIds();
     List<String> getAllCustomerEmails();
     List<Customer> getAllCustomersByName(String name);
-
-    List<Customer> getCustomersByStatus(CustomerStatus customerStatus);
 
 }

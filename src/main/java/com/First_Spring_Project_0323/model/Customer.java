@@ -2,6 +2,7 @@ package com.First_Spring_Project_0323.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 public class Customer {
 
     private Integer id;
@@ -10,12 +11,15 @@ public class Customer {
     @JsonProperty("last_name")
     private String lastName;
     private String email;
+    private CustomerStatus customerStatus;
 
-    public Customer(Integer id, String firstName, String lastName, String email) {
+
+    public Customer(Integer id, String firstName, String lastName, String email, CustomerStatus customerStatus) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.customerStatus = customerStatus;
     }
 
     public Integer getId() {
@@ -50,6 +54,14 @@ public class Customer {
         this.email = email;
     }
 
+    public CustomerStatus getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(CustomerStatus customerStatus) {
+        this.customerStatus = customerStatus;
+    }
+
     @Override
     public String toString() {
         return "Customer{" +
@@ -60,3 +72,5 @@ public class Customer {
                 '}';
     }
 }
+
+
