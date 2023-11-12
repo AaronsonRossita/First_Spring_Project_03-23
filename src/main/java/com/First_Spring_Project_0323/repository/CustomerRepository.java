@@ -13,6 +13,7 @@ public interface CustomerRepository {
     void updateCustomerFirstName(Integer id, String firstName);
     void updateCustomerLastName(Integer id, String lastName);
     void updateCustomerEmail(Integer id, String email);
+    void updateCustomerStatus(Integer id, CustomerStatus customerStatus);
 
     Customer getCustomerById(Integer id);
     List<Customer> getAllCustomers();

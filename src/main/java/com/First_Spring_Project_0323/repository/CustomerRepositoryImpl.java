@@ -91,6 +91,12 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     }
 
     @Override
+    public void updateCustomerStatus(Integer id, CustomerStatus customerStatus) {
+        String sql = "UPDATE "+ Constants.CUSTOMER_TABLE_NAME +" SET customer_status = ? WHERE id = ?";
+        jdbcTemplate.update(sql,customerStatus.toString(),id);
+    }
+
+    @Override
     public Customer getCustomerById(Integer id) {
         String sql = "SELECT * FROM "+ Constants.CUSTOMER_TABLE_NAME +" WHERE id = ?";
         try{

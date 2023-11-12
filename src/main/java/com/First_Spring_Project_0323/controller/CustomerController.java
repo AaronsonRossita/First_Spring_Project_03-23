@@ -1,8 +1,10 @@
 package com.First_Spring_Project_0323.controller;
 
 import com.First_Spring_Project_0323.model.Customer;
+import com.First_Spring_Project_0323.model.CustomerStatus;
 import com.First_Spring_Project_0323.service.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +37,11 @@ public class CustomerController {
     @PutMapping(value = "/update_email")
     public void updateCustomerEmail(@RequestParam Integer id,@RequestParam String email){
         customerService.updateCustomerEmail(id,email);
+    }
+
+    @PutMapping(value = "/update_status")
+    public void updateCustomerStatus(@RequestParam Integer id,@RequestParam CustomerStatus customerStatus){
+        customerService.updateCustomerStatus(id,customerStatus);
     }
 
 //    @DeleteMapping(value = "/delete/{id}")

@@ -24,7 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
             if(vipCustomersCreated < Constants.VIP_ALLOWED){
                 customerRepository.createCustomer(customer);
             }else{
-                System.out.println("can not create customer");
+                customer.setCustomerStatus(CustomerStatus.REGULAR);
+                customerRepository.createCustomer(customer);
             }
         }
     }
@@ -52,6 +53,20 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomerEmail(Integer id, String email) {
         customerRepository.updateCustomerEmail(id,email);
+    }
+
+    @Override
+    public void updateCustomerStatus(Integer id, CustomerStatus customerStatus) {
+        if(customerStatus != CustomerStatus.VIP){
+            customerRepository.updateCustomerStatus(id,customerStatus);
+        }else{
+            Integer countVipCustomers = customerRepository.getCustomersByStatus(CustomerStatus.VIP).size();
+            if(countVipCustomers < Constants.VIP_ALLOWED){
+                customerRepository.updateCustomerStatus(id,customerStatus);
+            }else{
+                System.out.println("No vip available, stay regular id = " + id);
+            }
+        }
     }
 
     @Override

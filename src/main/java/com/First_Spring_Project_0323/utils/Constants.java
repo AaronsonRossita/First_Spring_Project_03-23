@@ -5,6 +5,7 @@ public final class Constants {
     private Constants(){}
 
     public final static String CUSTOMER_TABLE_NAME = "customer";
+    public final static String ORDER_TABLE_NAME = "customer_order";
     public final static int VIP_ALLOWED = 5;
 
 

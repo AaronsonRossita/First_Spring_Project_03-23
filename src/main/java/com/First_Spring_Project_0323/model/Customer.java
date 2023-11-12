@@ -11,6 +11,7 @@ public class Customer {
     @JsonProperty("last_name")
     private String lastName;
     private String email;
+    @JsonProperty("customer_status")
     private CustomerStatus customerStatus;
 
 
