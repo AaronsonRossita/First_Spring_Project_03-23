@@ -12,3 +12,6 @@ spring:
   h2:
     console:
       enabled: true
+
+tvMaze:
+  url: https://api.tvmaze.com/shows

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class CustomerOrderRepositoryImpl implements CustomerOrderRepository{
 
@@ -34,5 +36,11 @@ public class CustomerOrderRepositoryImpl implements CustomerOrderRepository{
     public CustomerOrder getCustomerOrderById(Integer id) {
         String sql = "SELECT * FROM " + Constants.ORDER_TABLE_NAME + " WHERE id = ?";
         return jdbcTemplate.queryForObject(sql,new CustomerOrderMapper(),id);
+    }
+
+    @Override
+    public List<CustomerOrder> getCustomerOrdersByCustomerId(Integer customerId) {
+        String sql = "SELECT * FROM " + Constants.ORDER_TABLE_NAME + " WHERE customer_id = ?";
+        return jdbcTemplate.query(sql,new CustomerOrderMapper(),customerId);
     }
 }

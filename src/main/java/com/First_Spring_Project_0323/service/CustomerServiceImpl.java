@@ -16,17 +16,22 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepositoryImpl customerRepository;
 
     @Override
-    public void createCustomer(Customer customer) {
-        if(customer.getCustomerStatus() == CustomerStatus.REGULAR){
-            customerRepository.createCustomer(customer);
-        }else{
-            Integer vipCustomersCreated = customerRepository.getCustomersByStatus(CustomerStatus.VIP).size();
-            if(vipCustomersCreated < Constants.VIP_ALLOWED){
-                customerRepository.createCustomer(customer);
+    public Integer createCustomer(Customer customer) {
+        if(customer.getFirstName() != null && customer.getLastName() != null && customer.getCustomerStatus() != null){
+            if(customer.getCustomerStatus() == CustomerStatus.REGULAR){
+                return customerRepository.createCustomer(customer);
             }else{
-                customer.setCustomerStatus(CustomerStatus.REGULAR);
-                customerRepository.createCustomer(customer);
+                Integer vipCustomersCreated = customerRepository.getCustomersByStatus(CustomerStatus.VIP).size();
+                if(vipCustomersCreated < Constants.VIP_ALLOWED){
+                    return customerRepository.createCustomer(customer);
+                }else{
+                    customer.setCustomerStatus(CustomerStatus.REGULAR);
+                    return customerRepository.createCustomer(customer);
+                }
             }
+        }else{
+            System.out.println("can't create customer without name and lastname");
+            return -1;
         }
     }
 

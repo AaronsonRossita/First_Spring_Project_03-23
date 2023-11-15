@@ -19,7 +19,7 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     // update(), query(), queryForObject(), queryForList()
 
     @Override
-    public void createCustomer(Customer customer) {
+    public Integer createCustomer(Customer customer) {
 //        System.out.println("Customer " + customer + " was created");
 //        String sql = "INSERT INTO customer (first_name,last_name,email) VALUES ( '" + customer.getFirstName() + "','" + customer.getLastName() + "','" + customer.getEmail() + "')";
 //        String sql = String.format("INSERT INTO customer (first_name,last_name,email) VALUES ( '%s','%s','%s')",customer.getFirstName(),customer.getLastName(),customer.getEmail());
@@ -28,13 +28,18 @@ public class CustomerRepositoryImpl implements CustomerRepository{
 //                new String[]{"first_name","last_name","email"},
 //                new String[]{customer.getFirstName(),customer.getLastName(),customer.getEmail()});
 //        jdbcTemplate.update(sql);
-
         String sql = "INSERT INTO "+ Constants.CUSTOMER_TABLE_NAME +" (first_name,last_name,email,customer_status) VALUES (?,?,?,?)";
-        jdbcTemplate.update(sql,
+        int result = jdbcTemplate.update(sql,
                 customer.getFirstName(),
                 customer.getLastName(),
                 customer.getEmail(),
                 customer.getCustomerStatus().toString());
+        if(result == 1){
+            sql = "SELECT max(id) FROM " + Constants.CUSTOMER_TABLE_NAME;
+            return jdbcTemplate.queryForObject(sql,Integer.class);
+        }else{
+            return -1;
+        }
     }
 
     @Override

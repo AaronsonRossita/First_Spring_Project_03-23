@@ -2,6 +2,7 @@ package com.First_Spring_Project_0323.controller;
 
 import com.First_Spring_Project_0323.model.CustomerOrder;
 import com.First_Spring_Project_0323.model.CustomerOrderRequest;
+import com.First_Spring_Project_0323.model.CustomerOrderResponse;
 import com.First_Spring_Project_0323.service.CustomerOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ public class CustomerOrderController {
     private CustomerOrderService customerOrderService;
 
     @PostMapping
-    public void createOrder(@RequestBody CustomerOrderRequest customerOrderRequest){
-        customerOrderService.createOrder(customerOrderRequest);
+    public CustomerOrderResponse createOrder(@RequestBody CustomerOrderRequest customerOrderRequest){
+        return customerOrderService.createOrder(customerOrderRequest);
     }
     @PutMapping
     public void updateOrder(@RequestBody CustomerOrder customerOrder){
