@@ -15,6 +15,8 @@ public class Customer {
     private CustomerStatus customerStatus;
 
 
+
+
     public Customer(Integer id, String firstName, String lastName, String email, CustomerStatus customerStatus) {
         this.id = id;
         this.firstName = firstName;

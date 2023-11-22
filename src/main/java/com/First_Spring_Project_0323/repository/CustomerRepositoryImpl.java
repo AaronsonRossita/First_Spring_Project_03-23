@@ -2,8 +2,12 @@ package com.First_Spring_Project_0323.repository;
 
 import com.First_Spring_Project_0323.model.Customer;
 import com.First_Spring_Project_0323.model.CustomerStatus;
+import com.First_Spring_Project_0323.repository.cache.CacheRepository;
 import com.First_Spring_Project_0323.repository.mapper.CustomerMapper;
 import com.First_Spring_Project_0323.utils.Constants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,6 +21,12 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     @Autowired
     private JdbcTemplate jdbcTemplate;
     // update(), query(), queryForObject(), queryForList()
+
+    @Autowired
+    private CacheRepository cacheRepository;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public Integer createCustomer(Customer customer) {
@@ -105,9 +115,19 @@ public class CustomerRepositoryImpl implements CustomerRepository{
     public Customer getCustomerById(Integer id) {
         String sql = "SELECT * FROM "+ Constants.CUSTOMER_TABLE_NAME +" WHERE id = ?";
         try{
-            return jdbcTemplate.queryForObject(sql,new CustomerMapper(),id);
+            if(cacheRepository.isKeyExist(id.toString())){
+                System.out.println("got the customer with id " + id + " from cache");
+                return objectMapper.readValue(cacheRepository.getCacheEntity(id.toString()), Customer.class);
+            }else{
+                System.out.println("got the customer with id " + id + " from db");
+                Customer customer = jdbcTemplate.queryForObject(sql,new CustomerMapper(),id);
+                cacheRepository.createCacheEntity(id.toString(),objectMapper.writeValueAsString(customer));
+                return customer;
+            }
         }catch(EmptyResultDataAccessException e){
             return null;
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
