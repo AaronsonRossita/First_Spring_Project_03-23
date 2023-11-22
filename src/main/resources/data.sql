@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS customer_order;
 
 CREATE TABLE customer(
     id int NOT NULL AUTO_INCREMENT,

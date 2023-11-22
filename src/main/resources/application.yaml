@@ -15,3 +15,8 @@ spring:
 
 tvMaze:
   url: https://api.tvmaze.com/shows
+
+employee:
+  url: http://localhost:8082
+
+
